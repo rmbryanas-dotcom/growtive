@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% block title %}GROWTIVE - Virtual Study Class{% endblock %}
+{% block content %}
+<div class="hero" style="align-items: stretch;">
+  <!-- KIRI: TEXT -->
+  <div class="card" style="display:flex;flex-direction:column;justify-content:space-between;">
+    <div>
+      <h1 class="hero-title">
+        Belajar bareng, fokus bareng, <br />
+        grow bareng. 🌱
+      </h1>
+      <p class="hero-subtitle">
+        GROWTIVE adalah virtual study class untuk pelajar SD–SMA dengan virtual study room,
+        whiteboard, Jitsi video call, dan gamifikasi XP & coins biar kamu nggak belajar sendirian.
+      </p>
+      <div class="hero-buttons">
+        {% if not user %}
+        <a href="{{ url_for('register') }}" class="btn-primary">Mulai Belajar Gratis</a>
+        <a href="{{ url_for('login') }}" class="btn-outline">Saya sudah punya akun</a>
+        {% else %}
+        <a href="{{ url_for('dashboard') }}" class="btn-primary">Masuk ke Dashboard</a>
+        <a href="{{ url_for('study_room_lobby') }}" class="btn-outline">Cari Study Room</a>
+        {% endif %}
+      </div>
+    </div>
+
+    <div style="margin-top:18px;">
+      <div class="text-muted" style="font-size:0.8rem;margin-bottom:4px;">
+        Dipersenjatai dengan:
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;font-size:0.75rem;">
+        <span class="badge">Virtual Study Room</span>
+        <span class="badge">Jitsi Video Call</span>
+        <span class="badge">Excalidraw Whiteboard</span>
+        <span class="badge">XP & Coins</span>
+        <span class="badge">Leaderboard</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- KANAN: PREVIEW STUDY ROOM MINI -->
+  <div class="card" style="display:flex;flex-direction:column;gap:10px;">
+    <div class="card-title">Live Study Preview</div>
+    <div style="border-radius:16px;overflow:hidden;background:rgba(15,23,42,0.04);padding:6px;">
+      <div
+        style="
+          border-radius:14px;
+          overflow:hidden;
+          height:220px;
+          background:#000;
+          position:relative;
+        "
+      >
+        <!-- Fake mini Jitsi preview -->
+        <iframe
+          src="https://app.studystream.live/focus/room?ref=studystream.live&_gl=1*1eysj7k*_ga*MzY4ODMyNDAyLjE3NjQxNjAxNTU.*_ga_LP3RBDNETX*czE3NjQxNjAxNTQkbzEkZzEkdDE3NjQxNjA5MDMkajUyJGwwJGgw"
+          style="width:100%;height:100%;border:none;"
+        ></iframe>
+      </div>
+      <div style="display:flex;justify-content:space-between;margin-top:8px;font-size:0.78rem;">
+        <span class="text-muted">🔴 Live recording </span>
+        <span class="badge">Realtime</span>
+      </div>
+    </div>
+
+    <div
+      style="
+        display:grid;
+        grid-template-columns:1.4fr 1fr;
+        gap:8px;
+        font-size:0.78rem;
+      "
+    >
+      <div class="card" style="padding:10px;">
+        <div class="card-title" style="margin-bottom:4px;font-size:0.85rem;">Progress Kamu</div>
+        <div class="metric-value">+30 XP</div>
+        <div class="metric-sub">Sesi terakhir • Matematika SMP</div>
+      </div>
+      <div class="card" style="padding:10px;">
+        <div class="card-title" style="margin-bottom:4px;font-size:0.85rem;">Next Session</div>
+        <div class="metric-sub">Belajar bareng jam 20.00</div>
+        <div class="metric-sub">Topik: Persamaan Linear</div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

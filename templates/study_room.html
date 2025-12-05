@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% block title %}Study Room #{{ room.id }}{% endblock %}
+{% block head_extra %}
+  <script src="https://cdn.socket.io/4.7.4/socket.io.min.js"></script>
+{% endblock %}
+{% block content %}
+<h2>Study Room • {{ room.subject }} • {{ room.level_tag }} ({{ room.mode }})</h2>
+
+<div class="study-room-layout">
+  <!-- JITSI FULL WIDTH DI ATAS -->
+  <div class="card jitsi-card">
+    <div class="card-title">Video Call (Jitsi)</div>
+    <div style="border-radius:14px;overflow:auto;max-height:420px;">
+      <iframe
+        class="embed-jitsi"
+        src="https://app.studystream.live/focus/room-2?ref=studystream.live&_gl=1*1h5wy4o*_ga*MzY4ODMyNDAyLjE3NjQxNjAxNTU.*_ga_LP3RBDNETX*czE3NjQxNjAxNTQkbzEkZzEkdDE3NjQxNjEyMDIkajYwJGwwJGgw"
+        allow="camera; microphone; fullscreen"
+      ></iframe>
+    </div>
+    <div class="text-muted" style="font-size:0.75rem;margin-top:6px;">
+      Scroll jika tampilan meeting lebih tinggi dari frame.
+    </div>
+  </div>
+
+  <!-- WHITEBOARD KANAN ATAS -->
+  <div class="card whiteboard-card">
+    <div class="card-title">Whiteboard (Excalidraw)</div>
+    <iframe
+      class="embed-whiteboard"
+      src="https://excalidraw.com/#room=43279ab50eae98dc6cd3,xDWb4V38WPUNuoBME_EyIQ"
+    ></iframe>
+  </div>
+
+  <!-- CHAT KANAN BAWAH -->
+  <div class="card chat-card">
+    <div class="card-title">Chat</div>
+    <div id="chat-box" class="chat-box">
+      {% for m in messages %}
+      <div class="chat-message">
+        <span class="user">{{ m.user_id }}</span>
+        <span class="text-muted">[{{ m.created_at.strftime('%H:%M') }}]</span>:
+        {{ m.content }}
+      </div>
+      {% endfor %}
+    </div>
+    <form id="chat-form">
+      <div class="form-group">
+        <input id="chat-input" type="text" placeholder="Ketik pesan..." />
+      </div>
+    </form>
+  </div>
+
+  <!-- POMODORO KIRI BAWAH -->
+  <div class="card pomodoro-card">
+    <div class="card-title">Pomodoro</div>
+    <div id="pomodoro-label" class="text-muted" style="text-align:center;">Fokus</div>
+    <div id="pomodoro-display" class="pomodoro-timer">25:00</div>
+    <div class="pomodoro-controls">
+      <button type="button" onclick="startPomodoro()">Start</button>
+      <button type="button" onclick="pausePomodoro()">Pause</button>
+      <button type="button" onclick="resetPomodoro()">Reset</button>
+    </div>
+
+    <form
+      method="post"
+      action="{{ url_for('end_study_session', room_id=room.id) }}"
+      style="margin-top:12px;text-align:center;"
+    >
+      <button class="btn-outline" type="submit">Akhiri Sesi & Ambil XP</button>
+    </form>
+  </div>
+</div>
+{% endblock %}
+{% block scripts %}
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+  <script>
+    initSocketIO({{ room.id }});
+    resetPomodoro();
+  </script>
+{% endblock %}

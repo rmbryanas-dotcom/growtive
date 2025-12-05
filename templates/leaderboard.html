@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Leaderboard - GROWTIVE{% endblock %}
+{% block content %}
+<div class="card">
+  <h2>Leaderboard</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Nama</th>
+        <th>Level</th>
+        <th>XP</th>
+        <th>Coins</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for u in users %}
+      <tr>
+        <td>{{ loop.index }}</td>
+        <td>{{ u.name }}</td>
+        <td>{{ u.level }}</td>
+        <td>{{ u.xp }}</td>
+        <td>{{ u.coins }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

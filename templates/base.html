@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <title>{% block title %}GROWTIVE{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+    {% block head_extra %}{% endblock %}
+  </head>
+  <body>
+    <header class="navbar">
+      <div class="navbar-left">
+        <img
+          src="{{ url_for('static', filename='img/logo.png') }}"
+          alt="GROWTIVE"
+          class="navbar-logo"
+        />
+        <div class="navbar-title">GROWTIVE</div>
+      </div>
+      <nav class="navbar-menu">
+        {% if user %}
+        <a href="{{ url_for('dashboard') }}">Dashboard</a>
+        <a href="{{ url_for('library') }}">Library</a>
+        <a href="{{ url_for('study_room_lobby') }}">Study Room</a>
+        <a href="{{ url_for('leaderboard') }}">Leaderboard</a>
+        <a href="{{ url_for('upgrade') }}">Premium</a>
+        <a href="{{ url_for('profile') }}">Profil</a>
+        <a href="{{ url_for('logout') }}">Logout</a>
+        {% else %}
+        <a href="{{ url_for('login') }}">Login</a>
+        <a href="{{ url_for('register') }}" class="btn">Daftar</a>
+        {% endif %}
+      </nav>
+    </header>
+
+    <main class="container">
+      {% with messages = get_flashed_messages() %}
+      {% if messages %}
+      <div class="flash">
+        {% for m in messages %}
+        <div>{{ m }}</div>
+        {% endfor %}
+      </div>
+      {% endif %}
+      {% endwith %}
+
+      {% block content %}{% endblock %}
+    </main>
+
+    {% block scripts %}{% endblock %}
+  </body>
+</html>

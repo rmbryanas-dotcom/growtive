@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %}Materi - {{ material.title }}{% endblock %}
+{% block content %}
+<div class="card">
+  <h2>{{ material.title }}</h2>
+  <p class="text-muted">
+    {{ material.subject }} • Kelas {{ material.grade }} • {{ material.level_tag }}
+  </p>
+
+  {% if locked %}
+  <p>Ini adalah materi premium. Upgrade untuk mengakses.</p>
+  <a href="{{ url_for('upgrade') }}" class="btn-primary">Upgrade Premium</a>
+  {% else %}
+  <p>{{ material.description }}</p>
+  {% if material.video_url %}
+  <div class="embed-card" style="margin:10px 0;">
+    <iframe src="{{ material.video_url }}" allowfullscreen></iframe>
+  </div>
+  {% endif %}
+
+  <form method="post" style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px;">
+    <button class="btn-outline" type="submit" name="action" value="complete">Selesai Belajar</button>
+    <button class="btn-outline" type="submit" name="action" value="bookmark">Bookmark</button>
+  </form>
+
+  <form method="post">
+    <div class="form-group">
+      <label>Catatan pribadi</label>
+      <textarea name="note_content" placeholder="Tulis catatan singkat..."></textarea>
+    </div>
+    <button class="btn-outline" type="submit" name="action" value="note">Simpan Catatan</button>
+  </form>
+
+  {% if notes %}
+  <h3>Catatan Kamu</h3>
+  <ul class="list-compact">
+    {% for n in notes %}
+    <li>{{ n.created_at.strftime('%d/%m %H:%M') }} — {{ n.content }}</li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+  {% endif %}
+</div>
+{% endblock %}

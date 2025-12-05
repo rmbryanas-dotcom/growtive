@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+{% block title %}Upgrade Premium - GROWTIVE{% endblock %}
+{% block content %}
+<div class="dashboard-grid">
+  <!-- KARTU QR & INFO TRANSFER -->
+  <div class="card">
+    <div class="card-title">Pembayaran via Transfer / QRIS</div>
+    <p class="text-muted">
+      Scan QR di bawah ini atau transfer manual ke rekening yang tertera.
+      Ini hanya simulasi, tidak benar-benar memproses pembayaran.
+    </p>
+    <div style="text-align:center;margin:12px 0;">
+      <img
+        src="{{ url_for('static', filename='img/qr.png') }}"
+        alt="QR Pembayaran"
+        style="max-width:220px;border-radius:16px;"
+      />
+    </div>
+    <div>
+      <p>
+        <strong>Bank BRI</strong><br />
+        No. Rek: 1234 5678 9012 a.n. GROWTIVE EDU
+      </p>
+      <p>
+        <strong>Bank BCA</strong><br />
+        No. Rek: 9876 5432 1098 a.n. GROWTIVE EDU
+      </p>
+      <p class="text-muted" style="font-size:0.75rem;">
+        *Semua data di atas hanya contoh untuk keperluan UI demo.
+      </p>
+    </div>
+  </div>
+
+  <!-- KARTU PAKET PREMIUM -->
+  <div class="card">
+    <h2>Pilih Paket Premium</h2>
+    <div class="dashboard-grid">
+      {% for p in plans %}
+      <div class="card">
+        <div class="card-title">{{ p.name }} Premium</div>
+        <p class="metric-value">Rp {{ "{:,.0f}".format(p.price) }}/bulan</p>
+        <ul class="list-compact">
+          {% if p.code == 'basic' %}
+          <li>✅ Akses Virtual Study Room</li>
+          <li>✅ No ads</li>
+          <li>✅ +100 coins / bulan</li>
+          {% elif p.code == 'pro' %}
+          <li>✅ Semua Basic</li>
+          <li>✅ Materi premium eksklusif</li>
+          <li>✅ Tryout & planner belajar</li>
+          {% else %}
+          <li>✅ Semua Pro</li>
+          <li>✅ 1-on-1 mentoring (simulasi)</li>
+          <li>✅ Early access fitur baru</li>
+          {% endif %}
+        </ul>
+
+        <hr style="margin:10px 0;border:none;border-top:1px solid #e5e7eb;" />
+
+        <form
+          method="post"
+          action="{{ url_for('upgrade_plan', plan_code=p.code) }}"
+          enctype="multipart/form-data"
+        >
+          <div class="form-group">
+            <label>Pilih Bank</label>
+            <select name="bank" required>
+              <option value="BRI">BRI</option>
+              <option value="BCA">BCA</option>
+              <option value="Mandiri">Mandiri</option>
+              <option value="BNI">BNI</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Upload Bukti Transfer</label>
+            <input type="file" name="proof" accept="image/*" required />
+          </div>
+          <button class="btn-primary" type="submit">Saya sudah bayar & upload bukti</button>
+        </form>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endblock %}

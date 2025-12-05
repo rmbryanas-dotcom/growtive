@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Profil - GROWTIVE{% endblock %}
+{% block content %}
+<div class="card">
+  <h2>Profil</h2>
+  <p>Email: {{ user.email }}</p>
+  <p>
+    Status:
+    {% if user.is_premium %}
+    <span class="badge">Premium</span>
+    {% else %}
+    Free
+    {% endif %}
+  </p>
+  <form method="post" class="form-card" style="box-shadow:none;padding:0;margin-top:10px;">
+    <div class="form-group">
+      <label>Nama</label>
+      <input type="text" name="name" value="{{ user.name }}" />
+    </div>
+    <div class="form-group">
+      <label>Jenjang</label>
+      <select name="level_tag">
+        <option value="SD" {% if user.level_tag=='SD' %}selected{% endif %}>SD</option>
+        <option value="SMP" {% if user.level_tag=='SMP' %}selected{% endif %}>SMP</option>
+        <option value="SMA" {% if user.level_tag=='SMA' %}selected{% endif %}>SMA</option>
+      </select>
+    </div>
+    <button class="btn-primary" type="submit">Simpan</button>
+  </form>
+</div>
+{% endblock %}

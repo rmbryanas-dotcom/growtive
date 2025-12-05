@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block title %}Dashboard - GROWTIVE{% endblock %}
+{% block content %}
+<div class="dashboard-grid">
+  <div class="card">
+    <div class="card-title">Progress Kamu</div>
+    <div class="metric-value">{{ user.xp }} XP</div>
+    <div class="metric-sub">Level {{ user.level }} • {{ user.coins }} Coins</div>
+    <div class="metric-sub">Streak: {{ user.streak_days }} hari</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Belajar Mandiri</div>
+    <p class="text-muted">Akses library materi sesuai jenjang & kelas.</p>
+    <a href="{{ url_for('library') }}" class="btn-outline">Buka Library</a>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Virtual Study Room</div>
+    <p class="text-muted">Cari partner belajar 1-on-1 atau grup.</p>
+    <a href="{{ url_for('study_room_lobby') }}" class="btn-outline">Masuk Study Room</a>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Premium</div>
+    <p class="text-muted">
+      Status:
+      {% if user.is_premium %}
+      <span class="badge">Premium</span>
+      {% else %}
+      Free
+      {% endif %}
+    </p>
+    <a href="{{ url_for('upgrade') }}" class="btn-outline">Lihat Paket</a>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Leaderboard</div>
+    <ul class="list-compact">
+      {% for u in top_users %}
+      <li>
+        {{ loop.index }}. {{ u.name }} — {{ u.xp }} XP (Lv {{ u.level }})
+      </li>
+      {% endfor %}
+    </ul>
+    <a href="{{ url_for('leaderboard') }}" class="btn-outline" style="margin-top:8px;display:inline-block;">Lihat semua</a>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}Library - GROWTIVE{% endblock %}
+{% block content %}
+<div class="card">
+  <h2>Library Materi</h2>
+  <form method="get" style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;">
+    <select name="level_tag">
+      <option value="">Jenjang</option>
+      <option value="SD" {% if level_tag=='SD' %}selected{% endif %}>SD</option>
+      <option value="SMP" {% if level_tag=='SMP' %}selected{% endif %}>SMP</option>
+      <option value="SMA" {% if level_tag=='SMA' %}selected{% endif %}>SMA</option>
+    </select>
+    <input type="text" name="grade" placeholder="Kelas (misal 8)" value="{{ grade or '' }}" />
+    <input type="text" name="subject" placeholder="Mata pelajaran" value="{{ subject or '' }}" />
+    <button class="btn-outline" type="submit">Filter</button>
+  </form>
+
+  {% if materials %}
+  <div class="dashboard-grid">
+    {% for m in materials %}
+    <div class="card">
+      <div class="card-title">{{ m.title }}</div>
+      <div class="text-muted">{{ m.subject }} • Kelas {{ m.grade }} • {{ m.level_tag }}</div>
+      {% if m.is_premium %}
+      <div class="badge">Premium</div>
+      {% endif %}
+      <a href="{{ url_for('material_detail', material_id=m.id) }}" class="btn-outline" style="margin-top:8px;display:inline-block;">Buka</a>
+    </div>
+    {% endfor %}
+  </div>
+  {% else %}
+  <p class="text-muted">Belum ada materi untuk filter ini.</p>
+  {% endif %}
+</div>
+{% endblock %}

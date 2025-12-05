@@ -1,0 +1,362 @@
+:root {
+  --bg-gradient-start: #f5fbff;
+  --bg-gradient-end: #e3f2fd;
+  --card-bg: rgba(255, 255, 255, 0.78);
+  --card-radius: 20px;
+  --card-shadow: 0 18px 40px rgba(15, 23, 42, 0.12);
+  --primary: #2196f3;
+  --primary-soft: #bbdefb;
+  --text-main: #0f172a;
+  --text-muted: #6b7280;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: var(--text-main);
+  background: linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
+  min-height: 100vh;
+}
+
+/* NAVBAR */
+
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  backdrop-filter: blur(18px);
+  background: rgba(255, 255, 255, 0.78);
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+}
+
+.navbar-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.navbar-logo {
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  object-fit: contain;
+}
+
+.navbar-title {
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.navbar-menu {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+}
+
+.navbar-menu a {
+  text-decoration: none;
+  color: var(--text-main);
+  font-size: 0.9rem;
+}
+
+.navbar-menu a.btn {
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: var(--primary);
+  color: white;
+  box-shadow: 0 12px 30px rgba(33, 150, 243, 0.35);
+}
+
+/* LAYOUT */
+
+.container {
+  max-width: 1100px;
+  margin: 24px auto 40px;
+  padding: 0 16px;
+}
+
+.card {
+  background: var(--card-bg);
+  border-radius: var(--card-radius);
+  backdrop-filter: blur(18px);
+  box-shadow: var(--card-shadow);
+  padding: 18px 20px;
+}
+
+/* LANDING */
+
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  gap: 24px;
+  align-items: center;
+}
+
+.hero-title {
+  font-size: 2rem;
+  line-height: 1.2;
+  margin-bottom: 12px;
+}
+
+.hero-subtitle {
+  color: var(--text-muted);
+  margin-bottom: 16px;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.btn-primary {
+  padding: 10px 18px;
+  border-radius: 999px;
+  border: none;
+  background: var(--primary);
+  color: white;
+  cursor: pointer;
+  font-weight: 600;
+  box-shadow: 0 12px 30px rgba(33, 150, 243, 0.35);
+}
+
+.btn-outline {
+  padding: 9px 18px;
+  border-radius: 999px;
+  border: 1px solid var(--primary-soft);
+  background: rgba(255, 255, 255, 0.85);
+  cursor: pointer;
+  font-weight: 500;
+}
+
+/* FORMS */
+
+form.form-card {
+  max-width: 420px;
+  margin: 32px auto;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 12px;
+  font-size: 0.9rem;
+}
+
+.form-group label {
+  margin-bottom: 4px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  border-radius: 999px;
+  border: 1px solid #d1d5db;
+  padding: 8px 12px;
+  font-size: 0.9rem;
+  outline: none;
+}
+
+.form-group textarea {
+  border-radius: 14px;
+  min-height: 80px;
+}
+
+/* DASHBOARD BENTO */
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+.card-title {
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.metric-value {
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+.metric-sub {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.list-compact {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-size: 0.85rem;
+}
+
+.list-compact li + li {
+  margin-top: 4px;
+}
+
+/* TABLES */
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+}
+
+th,
+td {
+  padding: 8px 10px;
+  text-align: left;
+}
+
+thead {
+  background: rgba(248, 250, 252, 0.9);
+}
+
+/* STUDY ROOM LAYOUT (baru) */
+
+.study-room-layout {
+  display: grid;
+  gap: 14px;
+  grid-template-columns: 2fr 1.4fr;
+  grid-template-areas:
+    "jitsi jitsi"
+    "whiteboard chat"
+    "pomodoro chat";
+}
+
+/* jitsi full width di atas */
+.jitsi-card {
+  grid-area: jitsi;
+}
+
+/* whiteboard kanan-atas */
+.whiteboard-card {
+  grid-area: whiteboard;
+}
+
+/* chat kanan, tinggi dari tengah sampai bawah */
+.chat-card {
+  grid-area: chat;
+}
+
+/* pomodoro kiri bawah */
+.pomodoro-card {
+  grid-area: pomodoro;
+}
+
+.embed-jitsi {
+  width: 100%;
+  height: 400px; /* cukup tinggi, halaman bisa di-scroll */
+  border: none;
+}
+
+.embed-whiteboard {
+  width: 100%;
+  height: 220px;
+  border: none;
+}
+
+/* responsive: di HP jadi satu kolom */
+@media (max-width: 900px) {
+  .study-room-layout {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "jitsi"
+      "whiteboard"
+      "chat"
+      "pomodoro";
+  }
+
+  .embed-jitsi {
+    height: 260px;
+  }
+}
+
+
+/* CHAT */
+
+.chat-box {
+  max-height: 260px;
+  overflow-y: auto;
+  font-size: 0.85rem;
+  margin-bottom: 8px;
+}
+
+.chat-message {
+  margin-bottom: 4px;
+}
+
+.chat-message span.user {
+  font-weight: 600;
+}
+
+/* POMODORO */
+
+.pomodoro-timer {
+  font-size: 2rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 8px;
+}
+
+.pomodoro-controls {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+
+.pomodoro-controls button {
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: none;
+  background: var(--primary-soft);
+  cursor: pointer;
+  font-size: 0.8rem;
+}
+
+/* FLASH */
+
+.flash {
+  margin: 10px 0;
+  padding: 8px 12px;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  background: rgba(16, 185, 129, 0.08);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+/* MISC */
+
+.badge {
+  display: inline-block;
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: var(--primary-soft);
+  font-size: 0.7rem;
+}
+
+.text-muted {
+  color: var(--text-muted);
+  font-size: 0.8rem;
+}
+
+/* MOBILE */
+
+@media (max-width: 640px) {
+  .hero {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .navbar-menu {
+    gap: 8px;
+  }
+}
